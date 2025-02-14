@@ -1,2 +1,2 @@
 # react-capstone
-A react playground app
+A react playground app - Akos Osvald
