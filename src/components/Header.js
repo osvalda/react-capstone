@@ -2,11 +2,7 @@ import logoImage from './assets/logo.png';
 import MenuIcon from './assets/hamburger.svg'
 import React, { useState } from "react";
 import "./Header.css"
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
-import AboutPage from './pages/AboutPage';
-import ReservationPage from './pages/ReservationPage'
-import UnderConstructionPage from './pages/UnderConstructionPage/UnderConstructionPage'
-import HomePage from './pages/HomePage/HomePage';
+import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
     const navigate = useNavigate();
@@ -15,7 +11,7 @@ function Header() {
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
       };
-    
+
       const onClickImage = () => {
         navigate("/");
       };
@@ -37,19 +33,13 @@ function Header() {
                 </div>
                 <ul className={`menu-list ${isMenuOpen ? "open" : ""}`}>
                     {menuItems.map(actItem => (
-                        <Link to={actItem.link} className="nav-item" onClick={toggleMenu}>{actItem.label}</Link>
+                        <Link key={actItem.id} to={actItem.link} className="nav-item" onClick={toggleMenu}>{actItem.label}</Link>
                     ))}
                 </ul>
             </nav>
             <div className="menu-toggle" onClick={toggleMenu}>
                 <img src={MenuIcon} alt="menu-icon" />
             </div>
-            <Routes> 
-                <Route path="/" element={<HomePage />}></Route>
-                <Route path="/about" element={<AboutPage />}></Route>
-                <Route path="/reservations" element={<ReservationPage />}></Route>
-                <Route path="/underConstruction" element={<UnderConstructionPage />}></Route>
-            </Routes>
         </header>
     );
   }
