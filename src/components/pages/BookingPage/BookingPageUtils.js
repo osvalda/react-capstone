@@ -1,12 +1,11 @@
-function updateTimes(newDate) {
-    return [
-        {value: "2100", optionValue: "21:00"},
-        {value: "2200", optionValue: "22:00"}
-    ];
+import {fetchAPI} from "../../../utils/API"
+
+function updateTimes(availableTimes, newDate) {
+    return fetchAPI(new Date(newDate));
 }
 
 let initializeTimes  = () => {
-    return [{value: "1900", optionValue: "19:00"}];
+    return fetchAPI(new Date());
 }
 
 export default {updateTimes, initializeTimes}

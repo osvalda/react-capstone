@@ -5,6 +5,7 @@ import AboutPage from './pages/AboutPage';
 import ReservationPage from './pages/BookingPage/BookingPage'
 import UnderConstructionPage from './pages/UnderConstructionPage/UnderConstructionPage'
 import HomePage from './pages/HomePage/HomePage';
+import ConfirmedBooking from './pages/BookingConfirmationPage/ConfirmedBooking';
 
 const Layout = ({ children }) => {
   return (
@@ -17,6 +18,7 @@ const Layout = ({ children }) => {
           <Route path="/about" element={<AboutPage />}></Route>
           <Route path="/reservations" element={<ReservationPage />}></Route>
           <Route path="/underConstruction" element={<UnderConstructionPage />}></Route>
+          <Route path="/confirmedBooking" element={<ConfirmedBooking />}></Route>
         </Routes>
       </main>
       <Footer />

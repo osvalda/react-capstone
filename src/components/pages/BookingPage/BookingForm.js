@@ -1,6 +1,5 @@
 import Button from './../../Button/Button'
 import { useFormik } from "formik";
-import useSubmit from '../../../hooks/useSubmit';
 import * as Yup from 'yup';
 import {useAlertContext} from "./../../../context/AlertContext";
 import {FormControl,
@@ -17,19 +16,20 @@ import {FormControl,
   NumberIncrementStepper,
   NumberDecrementStepper,
 } from "@chakra-ui/react";
+import {submitAPI} from "../../../utils/API";
+import {useNavigate} from "react-router";
 
 const BookingForm = ({ ...props }) => {
-   const {isLoading, response, submit} = useSubmit();
    const { onOpen } = useAlertContext();
 
    const formik = useFormik({
       initialValues: {
         date: '',
-        time: '1700',
+        time: '',
         numberOfGuests: '',
         occasion: '',
       },
-      onSubmit: (values) => {handleClick(values)},
+      onSubmit: (values) => {submitForm(values)},
       validationSchema: Yup.object({
         date: Yup.date().required().label("Date"),
         time: Yup.string().required().label("Time"),
@@ -38,16 +38,15 @@ const BookingForm = ({ ...props }) => {
       }),
     });
 
-    const handleClick = (values) => {
-      console.log("clicked " + isLoading);
-      submit("http://someurl.com/", values)
-      if (response && response.message.length > 0) {
-        console.log(response);
-        onOpen(response.type, response.message);
-        if (response.type == 'success') {
-          formik.resetForm();
-        }
-        response.message="";
+const navigate = useNavigate();
+    const submitForm = (values) => {
+      console.log("submit: " + submitAPI(values));
+      if (submitAPI(values)) {
+        console.log("siker");
+        formik.resetForm();
+        navigate("/confirmedBooking");
+      } else {
+        onOpen("error", "Unfortunately the reservation has failed, please try again later!");
       }
     };
 
@@ -83,7 +82,7 @@ const BookingForm = ({ ...props }) => {
             onChange={handleInputChange}
             {...formik.getFieldProps("time")}>
                {props.availableTimes.map((act) =>
-                  <option key={act.value} value={act.value}>{act.optionValue}</option>
+                  <option key={act} value={act}>{act}</option>
                )}
         </Select>
         <FormErrorMessage>{formik.errors.time ? formik.errors.time: null}</FormErrorMessage>

@@ -12,20 +12,16 @@ test('Renders the BookingPage', () => {
 })
 
 test('expectedValue test', () => {
-    let expectedValue = [
-        {value: "2100", optionValue: "21:00"},
-        {value: "2200", optionValue: "22:00"}
-    ];
+    let expectedValue = "21:00";
 
-    let actualValue = BookingPageUtils.updateTimes("semmi");
+    let actualValue = BookingPageUtils.updateTimes('17:00', '2025-03-11');
 
-    expect(actualValue).toStrictEqual(expectedValue);
+    expect(actualValue).not.toHaveLength(0);
+    expect(actualValue).toContain(expectedValue);
 })
 
 test('initializeTimes test', () => {
-    let expectedValue = [{value: "1900", optionValue: "19:00"}];
-
     let actualValue = BookingPageUtils.initializeTimes();
 
-    expect(actualValue).toStrictEqual(expectedValue);
+    expect(actualValue).not.toHaveLength(0);
 })
