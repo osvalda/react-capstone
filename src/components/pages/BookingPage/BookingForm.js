@@ -21,6 +21,7 @@ import {useNavigate} from "react-router";
 
 const BookingForm = ({ ...props }) => {
    const { onOpen } = useAlertContext();
+     const navigate = useNavigate();
 
    const formik = useFormik({
       initialValues: {
@@ -31,24 +32,22 @@ const BookingForm = ({ ...props }) => {
       },
       onSubmit: (values) => {submitForm(values)},
       validationSchema: Yup.object({
-        date: Yup.date().required().label("Date"),
+        date: Yup.date().required().min(new Date(new Date().setHours(0,0,0,0))).label("Date"),
         time: Yup.string().required().label("Time"),
         numberOfGuests: Yup.number().positive().integer().lessThan(11).label("Number of guests").required(),
         occasion: Yup.string().optional(),
       }),
     });
 
-const navigate = useNavigate();
-    const submitForm = (values) => {
-      console.log("submit: " + submitAPI(values));
-      if (submitAPI(values)) {
-        console.log("siker");
-        formik.resetForm();
-        navigate("/confirmedBooking");
-      } else {
-        onOpen("error", "Unfortunately the reservation has failed, please try again later!");
-      }
-    };
+  const submitForm = (values) => {
+    if (submitAPI(values)) {
+      console.log("siker");
+      formik.resetForm();
+      navigate("/confirmedBooking");
+    } else {
+      onOpen("error", "Unfortunately the reservation has failed, please try again later!");
+    }
+  };
 
     const handleInputChange = (e) => {
       if (e.target.name === 'date') {
@@ -111,7 +110,7 @@ const navigate = useNavigate();
         />
         <FormErrorMessage>{formik.errors.occasion ? formik.errors.occasion: null}</FormErrorMessage>
       </FormControl>
-      <Button title={"Reserve a table"} type="submit" width="full" onClick={formik.handleSubmit}/>
+      <Button title={"Reserve a table"} type="submit" onClick={formik.handleSubmit} role="submit" aria-label="On Click"/>
     </VStack>
   </form>
   </Center>
