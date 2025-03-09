@@ -1,4 +1,4 @@
-import UnderConstructionPage from "./UnderConstructionPage/UnderConstructionPage";
+import UnderConstructionPage from "../UnderConstructionPage/UnderConstructionPage";
 
 function AboutPage() {
     return <UnderConstructionPage/>

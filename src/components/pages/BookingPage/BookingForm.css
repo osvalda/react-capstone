@@ -1,0 +1,21 @@
+.bookingForm {
+    height: calc(100vh - 64px - 249.16px - 96px - 30px);
+    display: grid;
+    max-width: 65rem;
+    margin: 0 auto;
+    margin-top: 96px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+@media screen and (max-width: 767px) {
+    .bookingForm {
+        height: 100%;
+        display: grid;
+        max-width: 65rem;
+        margin: 0 auto;
+        margin-top: 96px;
+        justify-content: center;
+        height: calc(100vh - 96px );
+    }
+}

@@ -19,7 +19,7 @@ const fetchAPI = (date) => {
 };
 
 const submitAPI = (formData) => {
-    return (Math.random() < 0.5) ? true : false;
+    return (Math.random() > 0.5) ? true : false;
 };
 
 export { fetchAPI, submitAPI };
